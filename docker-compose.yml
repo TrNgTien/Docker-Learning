@@ -1,0 +1,28 @@
+version: '3.9'
+
+services:
+  # MongoDB services
+  mongo_db:
+    container_name: db_container
+    image: mongo:latest
+    restart: always
+    volumes: 
+      - mongo_db:/data/db
+
+  # Node APi service
+  api:
+    build: ./server
+    ports:
+      - 5000:8080 
+    volumes:
+      - ./server:/usr/src/app
+    environment:
+        MONGO_URL: mongodb://db_container:27017
+        PORT: 8080
+        DB_NAME: local_docker
+        NAME: LOCALDOCKER
+    depends_on:
+      - mongo_db
+
+volumes:
+  mongo_db: {}
