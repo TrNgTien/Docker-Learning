@@ -16,6 +16,7 @@ services:
       - 5000:8080 
     volumes:
       - ./server:/usr/src/app
+      - /usr/src/app/node_modules
     environment:
         MONGO_URL: mongodb://db_container:27017
         PORT: 8080
